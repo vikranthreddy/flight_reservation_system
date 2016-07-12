@@ -1,0 +1,21 @@
+<?php
+$title = 'Search your Flights';
+$this->headTitle($title);
+?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php 
+  $form -> setAttribute('action', $this->url('flightressystem', array('action' => 'add')));
+ $form -> prepare();
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('flight')->get('id'));
+ echo('&nbsp;&nbsp;&nbsp;&nbsp;');
+ echo $this->formRow($form->get('flight')->get('origin'));
+
+echo('&nbsp;&nbsp;&nbsp;&nbsp;'); 
+ echo $this->formRow($form->get('flight')->get('destination'));
+ echo('&nbsp;&nbsp;&nbsp;&nbsp;');
+ echo $this->formRow($form->get('flight')->get('traveldate'));
+ echo('&nbsp;&nbsp;&nbsp;&nbsp;');
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();
+ ?>

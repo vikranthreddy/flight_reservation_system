@@ -21,22 +21,24 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
         
         $this->setHydrator(new DoctrineHydrator($objectManager));
         $this->setObject(new Flight());
+
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden'
         ));
         $this->add(array(
-            'name' => 'origin',
+            'name' => 'departure',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Origin'
+                'label' => 'Departure'
+                
             )
         ));
         $this->add(array(
-            'name' => 'destination',
+            'name' => 'arrival',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Destination'
+                'label' => 'Arrival'
             )
         ));
         
@@ -48,24 +50,24 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
             )
         ));
         $this->add(array(
-            'name' => 'airlines',
+            'name' => 'airline',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Airlines'
+                'label' => 'Airline'
             )
         ));
         $this->add(array(
-            'name' => 'flightno',
+            'name' => 'flightnumber',
             'type' => 'Text',
             'options' => array(
                 'label' => 'Flight Number'
             )
         ));
         $this->add(array(
-            'name' => 'passengerno',
+            'name' => 'freeseats',
             'type' => 'Text',
             'options' => array(
-                'label' => 'No of Passengers'
+                'label' => 'Free seats'
             )
         ));
         $this->add(array(
@@ -75,40 +77,12 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
                 'label' => 'Price per passenger'
             )
         ));
-        $this->add(array(
-            'name' => 'departure',
-            'type' => 'Text',
-            'options' => array(
-                'label' => 'Departure Time'
-            )
-        ));
-        $this->add(array(
-            'name' => 'arrival',
-            'type' => 'Text',
-            'options' => array(
-                'label' => 'Arrival Time'
-            )
-        ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\DateTimeLocal',
-            'name' => 'traveldate',
+            'type' => 'Zend\Form\Element\DateTime',
+            'name' => 'departuretime',
             'options' => array(
-                'label' => 'Date of travel',
-                'format' => 'Y-m-d\TH:i'
-            ),
-            'attributes' => array(
-                'min' => '2010-01-01T00:00:00Z',
-                'max' => '2020-01-01T00:00:00Z',
-                'step' => '1'
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\DateTimeLocal',
-            'name' => 'departure',
-            'options' => array(
-                'label' => 'Deaparture',
+                'label' => 'Deaparture Date & Time',
                 'format' => 'Y-m-d\TH:i'
             ),
             'attributes' => array(
@@ -119,9 +93,9 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
         ));
         $this->add(array(
             'type' => 'Zend\Form\Element\DateTime',
-            'name' => 'arrival',
+            'name' => 'arrivaltime',
             'options' => array(
-                'label' => 'Arrival',
+                'label' => 'Arrival Date & Time',
                 'format' => 'Y-m-d\TH:iP'
             ),
             'attributes' => array(
@@ -130,31 +104,41 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
                 'step' => '1'
             )
         ));
-      
     }
 
     public function getInputFilterSpecification()
     {
         return array(
-            'origin' => array(
-                'filters' => array(
-                    array('name' => 'StringTrim')
-                ),
-                'validators' => array(
-                    array('name' => 'NotEmpty')
-                )
-              
+            'id' => array(
+                'required' => false
             ),
-            'destination' => array(
-                'filters' => array(
-                    array('name' => 'StringTrim')
-                ),
-                'validators' => array(
-                    array('name' => 'NotEmpty')
-                )
-               
+            'airline' => array(
+                'required' => true
+            ),
+            'flightnumber' => array(
+                'required' => true
+            ),
+            'aircraft' => array(
+                'required' => true
+            ),
+            'departure' => array(
+                'required' => true
+            ),
+            'arrival' => array(
+                'required' => true
+            ),
+            'freeseats' => array(
+                'required' => true
+            ),
+            'price' => array(
+                'required' => true
+            ),
+            'departuretime' => array(
+                'required' => true
+            ),
+            'arrivaltime' => array(
+                'required' => true
             )
-      
         );
     }
 }

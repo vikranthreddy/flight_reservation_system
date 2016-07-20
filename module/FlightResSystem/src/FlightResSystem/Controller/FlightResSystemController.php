@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use FlightResSystem\Form\FlightResSystemForm;
 use FlightResSystem\Entity\Flight;
+use FlightResSystem\Form\FlightSearchForm;
 
 class FlightResSystemController extends AbstractActionController
 {
@@ -23,7 +24,7 @@ class FlightResSystemController extends AbstractActionController
     {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         
-         $form = new FlightResSystemForm($objectManager);
+         $form = new FlightSearchForm($objectManager);
          return array('form' => $form);
           
     }
@@ -37,7 +38,7 @@ class FlightResSystemController extends AbstractActionController
 
     public function addAction()
     {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $objectManager = $this->getObjectManager();
         
         $form = new FlightResSystemForm($objectManager);
     
@@ -47,7 +48,7 @@ class FlightResSystemController extends AbstractActionController
             $flight = new Flight();
             $form->bind($flight);
             $form->setData($request->getPost());
-        
+
         if($form->isValid())
         {
          $objectManager->persist($flight);

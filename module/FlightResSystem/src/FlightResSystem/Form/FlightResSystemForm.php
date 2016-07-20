@@ -9,7 +9,7 @@ class FlightResSystemForm extends Form
 
     public function __construct( ObjectManager $objectManager)
     {
-        parent::__construct('flight-res-system');
+        parent::__construct('flight-res-system-form');
         $this->setHydrator(new DoctrineHydrator($objectManager));
         $flightfieldset = new FlightResSystemFieldset($objectManager);
         $flightfieldset ->setUseAsBaseFieldset(true);
@@ -19,9 +19,11 @@ class FlightResSystemForm extends Form
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => 'Go',
+                'value' => 'Submit',
                 'id' => 'submitbutton'
             )
+           
         ));
+        
     }
 }

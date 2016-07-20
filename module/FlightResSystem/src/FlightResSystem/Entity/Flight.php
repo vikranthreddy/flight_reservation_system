@@ -8,22 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="flightdata")
  */
 class Flight{
-        protected $inputFilter;
     /**
      * @ORM\id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(name="origin", type="string", length=255) 
-     */
-    private $origin;
-    /**
-     * @ORM\Column(name="destination", type="string", length=255)
-     */
-    private $destination;
     /**
      * @ORM\Column(name="airline", type="string", length=255)
      */
@@ -37,6 +27,14 @@ class Flight{
      */
     private $aircraft;
     /**
+     * @ORM\Column(name="departure", type="string", length=255)
+     */
+    private $departure;
+    /**
+     * @ORM\Column(name="arrival", type="string", length=255)
+     */
+    private $arrival;
+    /**
      * @ORM\Column(name="freeseats", type="integer")
      */
     private $freeseats;
@@ -45,37 +43,19 @@ class Flight{
      */
     private $price;
     /**
-     * @ORM\Column(name="departure", type="datetime")
+     * @ORM\Column(name="departuretime", type="datetime")
      */
-    private $departure;
+    private $departuretime;
     /**
-     * @ORM\Column(name="arrival", type="datetime")
+     * @ORM\Column(name="arrivaltime", type="datetime")
      */
-    private $arrival;
-    
-    
+    private $arrivaltime;
     /**
      * @return the $id
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return the $origin
-     */
-    public function getOrigin()
-    {
-        return $this->origin;
-    }
-
-    /**
-     * @return the $destination
-     */
-    public function getDestination()
-    {
-        return $this->destination;
     }
 
     /**
@@ -103,22 +83,6 @@ class Flight{
     }
 
     /**
-     * @return the $freeseats
-     */
-    public function getFreeseats()
-    {
-        return $this->freeseats;
-    }
-
-    /**
-     * @return the $price
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * @return the $departure
      */
     public function getDeparture()
@@ -135,27 +99,43 @@ class Flight{
     }
 
     /**
+     * @return the $freeseats
+     */
+    public function getFreeseats()
+    {
+        return $this->freeseats;
+    }
+
+    /**
+     * @return the $price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return the $departuretime
+     */
+    public function getDeparturetime()
+    {
+        return $this->departuretime;
+    }
+
+    /**
+     * @return the $arrivaltime
+     */
+    public function getArrivaltime()
+    {
+        return $this->arrivaltime;
+    }
+
+    /**
      * @param field_type $id
      */
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @param field_type $origin
-     */
-    public function setOrigin($origin)
-    {
-        $this->origin = $origin;
-    }
-
-    /**
-     * @param field_type $destination
-     */
-    public function setDestination($destination)
-    {
-        $this->destination = $destination;
     }
 
     /**
@@ -183,6 +163,22 @@ class Flight{
     }
 
     /**
+     * @param field_type $departure
+     */
+    public function setDeparture($departure)
+    {
+        $this->departure = $departure;
+    }
+
+    /**
+     * @param field_type $arrival
+     */
+    public function setArrival($arrival)
+    {
+        $this->arrival = $arrival;
+    }
+
+    /**
      * @param field_type $freeseats
      */
     public function setFreeseats($freeseats)
@@ -199,19 +195,19 @@ class Flight{
     }
 
     /**
-     * @param field_type $departure
+     * @param field_type $departuretime
      */
-    public function setDeparture($departure)
+    public function setDeparturetime($departuretime)
     {
-        $this->departure = $departure;
+        $this->departuretime = $departuretime;
     }
 
     /**
-     * @param field_type $arrival
+     * @param field_type $arrivaltime
      */
-    public function setArrival($arrival)
+    public function setArrivaltime($arrivaltime)
     {
-        $this->arrival = $arrival;
+        $this->arrivaltime = $arrivaltime;
     }
 
 }

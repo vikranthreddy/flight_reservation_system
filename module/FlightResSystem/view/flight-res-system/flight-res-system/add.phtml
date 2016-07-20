@@ -2,20 +2,28 @@
 $title = 'Add Flight';
 $this->headTitle($title);
 ?>
- <h1><?php echo $this->escapeHtml($title); ?></h1>
- <?php 
-  $form -> setAttribute('action', $this->url('flightressystem', array('action' => 'add')));
- $form -> prepare();
- echo $this->form()->openTag($form);
- ?>
-  <?php echo $this->formHidden($form->get('flight')->get('id'));?> <br>
-  <?php echo $this->formRow($form->get('flight')->get('origin'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('destination'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('flightno'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('airlines'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('aircraft'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('passengerno'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('price'));?><br>
-  <?php echo $this->formRow($form->get('flight')->get('traveldate'));?><br>
-  <?php echo $this->formSubmit($form->get('submit'));
- echo $this->form()->closeTag();?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('flightressystem', array(
+    'action' => 'add'
+)));
+$form->prepare();
+
+$flight = $form->get('flight');
+
+echo $this->form()->openTag($form);?>
+<table class="table">
+<?php echo $this->formhidden($flight->get('id'));?>
+<tr><td><?php echo $this->formRow($flight->get('airline'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('flightnumber'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('aircraft'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('departure'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('arrival'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('freeseats'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('price'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('departuretime'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('arrivaltime'));?></td></tr>
+
+<tr><td><?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();?></td></tr>
+</table>

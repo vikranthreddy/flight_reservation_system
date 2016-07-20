@@ -1,0 +1,114 @@
+<?php
+namespace FlightResSystem\Form;
+
+use Zend\Form\Form;
+use Zend\Form\Element;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\InputFilter\InputFilter;
+use Zend\Form\Fieldset;
+use FlightResSystem\Entity\Flight;
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use FlightResSystem\Entity\FlightSearch;
+
+class FlightSearchFieldset extends Fieldset implements InputFilterProviderInterface
+{
+
+    public function __construct(ObjectManager $objectManager)
+    {
+        parent::__construct('flight-search');
+        
+        $this->setHydrator(new DoctrineHydrator($objectManager));
+        $this->setObject(new FlightSearch());
+        $this->add(array(
+            'name' => 'id',
+            'type' => 'Hidden'
+        ));
+        $this->add(array(
+            'name' => 'origin',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Origin'
+            )
+        ));
+        $this->add(array(
+            'name' => 'destination',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Destination'
+            )
+        ));
+//         $this->add(array(
+//             'type' => 'Zend\Form\Element\Date',
+//             'name' => 'traveldate',
+//             'options' => [
+//                 'label' => 'Travel Date',
+//                 'create_empty_option' => true,
+//                 'min_year' => date('Y') - 30,
+//                 'max_year' => date('Y') - 18,
+//                 'day_attributes' => array(
+//                     'style' => 'width: 22%'
+//                 ),
+//                 'month_attributes' => array(
+//                     'style' => 'width: 35%'
+//                 ),
+//                 'year_attributes' => array(
+//                     'style' => 'width: 25%'
+//                 )
+//             ],
+//             'attributes' => [
+//                 'id' => 'traveldate',
+//                 'class' => 'required datepicker-date',
+//                 'type' => 'text'
+//             ]
+//         ));
+        $this->add([
+            'type' => Element\Date::class,
+            'name' => 'traveldate',
+            'options' => [
+                'label' => 'Appointment Date/Time',
+                'format' => 'Y-m-d\TH:iP',
+            ],
+            'attributes' => [
+                'min' => '2010-01-01T00:00:00Z',
+                'max' => '2020-01-01T00:00:00Z',
+                'step' => '1', // minutes; default step interval is 1 min
+            ],
+        ]);
+        $this->add(array(
+            'name' => 'noofpassengers',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'No of passengers'
+            )
+        ));
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     */
+    public function getInputFilterSpecification()
+    {
+        return array(
+            'id' => array(
+                'required' => false
+            ),
+            
+            'origin' => array(
+                'required' => true
+            ),
+            'destination' => array(
+                'required' => true
+            ),
+            'traveldate' => array(
+                'required' => true
+            ),
+            'noofpassengers' => array(
+                'required' => true
+            )
+        );
+    }
+}

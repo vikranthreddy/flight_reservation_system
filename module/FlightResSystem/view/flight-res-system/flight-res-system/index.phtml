@@ -1,33 +1,41 @@
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $( ".datepicker-date" ).datepicker({
-        dateFormat: "dd-mm-yy",
-        changeMonth: true,
-        changeYear: true
-    });
-});
-</script>
 <?php
-$title = 'Search your Flights';
+$title = 'your Flights';
 $this->headTitle($title);
 ?>
  <h1><?php echo $this->escapeHtml($title); ?></h1>
- <?php 
-  $form -> setAttribute('action', $this->url('flightressystem', array('action' => 'add')));
- $form -> prepare();
- echo $this->form()->openTag($form);
- echo $this->formHidden($form->get('flight-search')->get('id'));
- echo('&nbsp;&nbsp;&nbsp;&nbsp;');
- echo $this->formRow($form->get('flight-search')->get('origin'));
+ <p>
+     <a href="<?php echo $this->url('flightressystem', array('action'=>'add'));?>">Add new Flight</a>
+ </p>
 
-echo('&nbsp;&nbsp;&nbsp;&nbsp;'); 
- echo $this->formRow($form->get('flight-search')->get('destination'));
- echo('&nbsp;&nbsp;&nbsp;&nbsp;');
- echo $this->formRow($form->get('flight-search')->get('traveldate'));
- echo('&nbsp;&nbsp;&nbsp;&nbsp;');
- echo $this->formRow($form->get('flight-search')->get('noofpassengers'));
- echo('&nbsp;&nbsp;&nbsp;&nbsp;');
- echo $this->formSubmit($form->get('submit'));
- echo $this->form()->closeTag();
- ?>
+ <table class="table">
+ <tr>
+     <th>Airline</th>
+     <th>FlightNumber</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+     
+     <th>Aircraft</th>
+     <th>Free seats</th>
+     <th>Price </th>
+     
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($flights as $flight) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($flight->getAirline());?></td>
+     <td><?php echo $this->escapeHtml($flight->getFlightnumber());?></td>
+          <td><?php echo $this->escapeHtml($flight->getDeparturetime()->format('Y-m-d H:i:s'));?></td>
+               <td><?php echo $this->escapeHtml($flight->getArrivaltime()->format('Y-m-d H:i:s'));?></td>
+     
+          <td><?php echo $this->escapeHtml($flight->getFreeseats());?></td>
+          <td><?php echo $this->escapeHtml($flight->getPrice());?></td>
+     
+     <td>
+         <a href="<?php echo $this->url('flightressystem',
+             array('action'=>'edit', 'id' => $flight->getId()));?>">Edit</a>
+         <a href="<?php echo $this->url('flightressystem',
+             array('action'=>'delete', 'id' => $flight->getId()));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>

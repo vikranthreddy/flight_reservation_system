@@ -19,7 +19,7 @@ class FlightSearchForm extends Form
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => 'Go',
+                'value' => 'Search',
                 'id' => 'submitbutton'
             )
         ));

@@ -38,42 +38,19 @@ class FlightSearchFieldset extends Fieldset implements InputFilterProviderInterf
                 'label' => 'Destination'
             )
         ));
-//         $this->add(array(
-//             'type' => 'Zend\Form\Element\Date',
-//             'name' => 'traveldate',
-//             'options' => [
-//                 'label' => 'Travel Date',
-//                 'create_empty_option' => true,
-//                 'min_year' => date('Y') - 30,
-//                 'max_year' => date('Y') - 18,
-//                 'day_attributes' => array(
-//                     'style' => 'width: 22%'
-//                 ),
-//                 'month_attributes' => array(
-//                     'style' => 'width: 35%'
-//                 ),
-//                 'year_attributes' => array(
-//                     'style' => 'width: 25%'
-//                 )
-//             ],
-//             'attributes' => [
-//                 'id' => 'traveldate',
-//                 'class' => 'required datepicker-date',
-//                 'type' => 'text'
-//             ]
-//         ));
         $this->add([
-            'type' => Element\Date::class,
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'traveldate',
             'options' => [
-                'label' => 'Appointment Date/Time',
-                'format' => 'Y-m-d\TH:iP',
+                'label' => 'Travel Date',
+                'format' => 'Y-m-d'
             ],
             'attributes' => [
-                'min' => '2010-01-01T00:00:00Z',
-                'max' => '2020-01-01T00:00:00Z',
-                'step' => '1', // minutes; default step interval is 1 min
-            ],
+                'min' => '2010-01-01',
+                'max' => '2020-01-01',
+                'step' => '1'
+            ] // minutes; default step interval is 1 min
+
         ]);
         $this->add(array(
             'name' => 'noofpassengers',
@@ -84,12 +61,6 @@ class FlightSearchFieldset extends Fieldset implements InputFilterProviderInterf
         ));
     }
 
-    /**
-     *
-     * {@inheritdoc}
-     *
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
-     */
     public function getInputFilterSpecification()
     {
         return array(

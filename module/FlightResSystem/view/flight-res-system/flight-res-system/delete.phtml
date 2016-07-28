@@ -1,1 +1,27 @@
 <?php
+$title = 'Delete Flight';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>
+	Are you sure that you want to delete <b>Flight Number</b> : '<?php echo $this->escapeHtml($flightressystem->getFlightnumber()); ?>'<br>
+	<b>Departure</b> : '<?php echo $this->escapeHtml($flightressystem->getDeparture()); ?>'<br>
+	<b>Arrival</b> : '<?php echo $this->escapeHtml($flightressystem->getArrival()); ?>'<br>
+
+</p>
+<?php
+$url = $this->url('flightressystem', array(
+    'controller' => 'flightressystem',
+    'action' => 'delete',
+    'id' => $this->id
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+	<div>
+		<input type="hidden" name="id"
+			value="<?php echo (int) $flightressystem->getId(); ?>" /> <input
+			type="submit" name="del" value="Yes" /> <input type="submit"
+			name="del" value="No" />
+	</div>
+</form>

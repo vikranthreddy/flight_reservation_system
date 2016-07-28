@@ -1,1 +1,29 @@
 <?php
+$title = 'Edit Flight';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('flightressystem', array(
+    'action' => 'edit','id' => $this->id 
+)));
+$form->prepare();
+
+$flight = $form->get('flight');
+
+echo $this->form()->openTag($form);?>
+<table class="table">
+<?php echo $this->formhidden($flight->get('id'));?>
+<tr><td><?php echo $this->formRow($flight->get('airline'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('flightnumber'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('aircraft'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('departure'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('arrival'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('freeseats'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('price'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('departuretime'));?></td></tr>
+<tr><td><?php echo $this->formRow($flight->get('arrivaltime'));?></td></tr>
+
+<tr><td><?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();?></td></tr>
+</table>

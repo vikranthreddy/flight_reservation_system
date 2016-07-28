@@ -38,6 +38,20 @@ return array(
                     ),
                 ),
             ),
+            'admin' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/admin/flightressystem[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'FlightResSystem\Controller\FlightResSystem',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     

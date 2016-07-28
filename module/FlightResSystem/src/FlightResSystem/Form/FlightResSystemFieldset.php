@@ -4,7 +4,6 @@ namespace FlightResSystem\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\InputFilter\InputFilter;
 use Zend\Form\Fieldset;
 use FlightResSystem\Entity\Flight;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -12,16 +11,15 @@ use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInterface
 {
-
-    protected $inputFilter;
-
+protected $objectManager;
+    
     public function __construct(ObjectManager $objectManager)
     {
         parent::__construct('flight');
-        
+        $this->objectManager =$objectManager;
         $this->setHydrator(new DoctrineHydrator($objectManager));
         $this->setObject(new Flight());
-
+        
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden'
@@ -105,7 +103,7 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
             )
         ));
     }
-
+ 
     public function getInputFilterSpecification()
     {
         return array(
@@ -113,10 +111,27 @@ class FlightResSystemFieldset extends Fieldset implements InputFilterProviderInt
                 'required' => false
             ),
             'airline' => array(
-                'required' => true
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    )
             ),
             'flightnumber' => array(
-                'required' => true
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'DoctrineModule\Validator\NoObjectExists',
+                        'options' => array(
+                            'object_repository' => $this->objectManager->getRepository('FlightResSystem\Entity\Flight'),
+                            'fields' => 'flightnumber',
+                            'messages' => array(
+                                'objectFound' => 'Entry with same flight number exists...!'
+                            ),
+                        )
+                    )
+                )
+                
             ),
             'aircraft' => array(
                 'required' => true

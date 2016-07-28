@@ -7,5 +7,4 @@ This project uses:
 - Zend Framework 2
 - Doctrine 2 for ORM
 - MySQL
-- Bootstrap (future)
 This project is incomplete and with bugs.
